@@ -1,7 +1,7 @@
 {
-  "name": "paloma-md-links",
+  "name": "md-links",
   "version": "0.1.0",
-  "description": "## Índice",
+  "description": "lib que lerá arquivos markdow",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -17,7 +17,7 @@
     "url": "git+https://github.com/palomacqueiroz/SAP006-md-links.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Paloma Queiroz",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/palomacqueiroz/SAP006-md-links/issues"
@@ -27,6 +27,8 @@
     "chalk": "^4.1.2"
   },
   "devDependencies": {
+    "eslint": "^8.0.1",
+    "eslint-plugin-node": "^11.1.0",
     "nodemon": "^2.0.13"
   }
 }
