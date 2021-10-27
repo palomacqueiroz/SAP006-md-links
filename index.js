@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 const fs = require('fs');                             // lib que acessa arquivos
+const path = require('path');
 
 function extractLinks(text) {
   const regex =  /\[([^\]]*)\]\((https?:\/\/[^*$#\s].[^\s]*)\)/gm;
@@ -22,7 +23,7 @@ async function getFile (pathFile) {
   const encoding = 'utf-8'
   try{
     const text = await fs.promises.readFile(pathFile, encoding)
-    return extractLinks(text);    // recebe conteúdo do arquivo - sempre passar por parametro
+    return extractLinks(text) // recebe conteúdo do arquivo - sempre passar por parametro
   } catch(erro){
     handleError(erro)
   } finally {
@@ -30,9 +31,25 @@ async function getFile (pathFile) {
   }
 }
 
-  // getFile('./README.md');
+module.exports = getFile;
 
-  module.exports = getFile;
+/* async function getFile (pathFile) {
+  const absolutPath = path.join(__dirname, '..', pathFile);
+  const encoding = 'utf-8'
+  try {
+    const files = await fs.promises.readdir(absolutPath, { encoding });
+    const result = await Promise.all(files.map(async (file) => {
+        const localFile = `${absolutPath}/${file}`;
+        const text = await fs.promises.readFile(localFile, encoding);
+        return extractLinks(text);    // recebe conteúdo do arquivo - sempre passar por parametro
+    }));
+    return result;
+  } catch(erro){
+    return handleError(erro)
+  } 
+} */
+
+  // getFile('./README.md');
 
 
 
