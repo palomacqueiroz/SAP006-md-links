@@ -1,8 +1,6 @@
 const chalk = require('chalk');
 const fs = require('fs');                             // lib que acessa arquivos
 
-
-
 function extractLinks(text) {
   const regex =  /\[([^\]]*)\]\((https?:\/\/[^*$#\s].[^\s]*)\)/gm;
   const arrResults = []
@@ -12,9 +10,8 @@ function extractLinks(text) {
     arrResults.push({ 
       [temp[1]]:temp[2]                                // key deve estar dentro de [] para conseguir usar como key
     })
-  }
-  
-  return arrResults;
+  }  
+  return arrResults.length === 0 ? 'não há links' : arrResults;      // caso não exista links condicional
 }
 
 function handleError(erro) {
@@ -24,8 +21,8 @@ function handleError(erro) {
 async function getFile (pathFile) {
   const encoding = 'utf-8'
   try{
-  const text = await fs.promises.readFile(pathFile, encoding)
-  console.log(extractLinks(text)) // recebe conteúdo do arquivo - sempre passar por parametro
+    const text = await fs.promises.readFile(pathFile, encoding)
+    return extractLinks(text);    // recebe conteúdo do arquivo - sempre passar por parametro
   } catch(erro){
     handleError(erro)
   } finally {
